@@ -16,10 +16,16 @@ def testPass(cryptPass):
     print ("[-] Password Not Found.\n")
     return
 
-def main():
-    passFile = open('userslist.txt', 'w') # opens up the text file
-    passFile.write(usersName)
-    for line in passFile.readlines():
+def main(): 
+    # The beginning of the loop for adding users 
+    
+    usersName = raw_input("\n\t Please Insert A Name of a User : ") 
+    Users = open('userslist.txt', 'w')  # opens up the text file userslist.txt
+    Users.write(usersName+':')	    # adds : after every entrance so the input can be readable
+    Users.close() 			    # most close the file after editing
+    # the beginning of the second opening of the document for reading lines
+    PassText = open('userslist.txt')
+    for line in PassText.readlines():
 	if ":" in line: 	     # searchs in the text file for word followed by :
 	       user = line.split(':')[0]
 	       cryptPass = line.split(':')[1].strip(' ')
