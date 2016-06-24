@@ -1,6 +1,6 @@
 #!/usr/bin/env python2
 # written by Moses Arocha
-# Created in Python, it is a SYN Flood Attack that uses the library Scapy, created wit the help of TJ O'Connor "Violent Python"
+# Created in Python, it is a SYN Flood Attack that uses the library Scapy, created with the help of TJ O'Connor "Violent Python"
 
 from scapy.all import *
 
