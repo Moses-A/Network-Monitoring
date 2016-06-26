@@ -1,7 +1,7 @@
 # Python Code
 Created in Python, created with the help of TJ O'Connor "Violent Python"
 
-(Install Aided by TJ O'Connor in his book "Violent Python"
+(Install Aided by TJ O'Connor in his book "Violent Python")
 
 Please install dpkt and GeoLiteCity packets
 
