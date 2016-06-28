@@ -11,45 +11,45 @@ def connScan(TargetHost, TargetPort):
    try:
 	connSkt = socket(AF_INET, SOCK_STREAM)
 	connSkt.connect((TargetHost, TargetPort))
-	connSkt.send('ViolentPython\r\n')
+	connSkt.send('KaliWithUbuntu\r\n')
 	results = connSkt.recv(100)
 	screenLock.acquire()
-	print '[+]%d/tcp open'% TargetPort
-	print '[+] ' + str(results)
+	print '\n\t[Success] %d/ TCP Port Open'% TargetPort
+	print '\n\t[Success] ' + str(results)
    except:
 	screenLock.acquire()
-	print '[-]%d/tcp closed'% TargetPort
+	print '\t\t[Failure] %d/ TCP Port Closed'% TargetPort
    finally:
 	screenLock.release()
 	connSkt.close()
 
-def portScan(TargetHost, TargetPorts):
+def PortScanner(TargetHost, TargetPorts):
    try:
-	tgtIP = gethostbyname(TargetHost)
+	TargetIP = gethostbyname(TargetHost)
    except:
-	print "[-] Cannot resolve '%s': Unknown host"%TargetHost
+	print "\n\t[Failure] Cannot resolve '%s': Host Does Not Exist"%TargetHost
 	return
    try:
-	tgtName = gethostbyaddr(tgtIP)
-	print '\n\t[+] Scan Results for: ' + tgtName[0]
+	TargetName = gethostbyaddr(TargetIP)
+	print '\n\t[Success] Scan Results for: ' + TargetName[0]
    except:
-	print '\n\t[+] Scan Results for: ' + tgtIP
+	print '\n\t[Success] Scan Results for: ' + TargetIP
    setdefaulttimeout(1)
    for TargetPort in TargetPorts:
-	t = Thread(target=connScan, args=(TargetHost, int(TargetPort)))
-	t.start()
+	threading = Thread(target=connScan, args=(TargetHost, int(TargetPort)))
+	threading.start()
 
 def main():
    parser = optparse.OptionParser('usage%prog '+ '-H <target host> -P <target port>')
-   parser.add_option('-H', '--Host', dest = 'TargetHost', type='string', help = 'specify target host')
-   parser.add_option('-P', '--Port', dest = 'TargetPort', type='string', help = 'specify target port[s] separated by comma')
+   parser.add_option('-H', '--Host', dest = 'TargetHost', type='string', help = 'Please Write The Exact Host Targeted')
+   parser.add_option('-P', '--Port', dest = 'TargetPort', type='string', help = 'Please Write The Exact Ports, Only Seperated By Comma')
    (options,args) = parser.parse_args()
    TargetHost = options.TargetHost
    TargetPorts = str(options.TargetPort).split(',')
    if (TargetHost == None) | (TargetPorts[0] == None):
 	print parser.usage
 	exit(0)
-   portScan(TargetHost, TargetPorts)
+   PortScanner(TargetHost, TargetPorts)
 
 if __name__ == "__main__":
 	main()
