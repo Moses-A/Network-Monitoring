@@ -5,7 +5,7 @@ import optparse
 from socket import *
 from threading import *
 
-screenLock = Semaphore(value=1)
+ThreadingDisplayLimit = Semaphore(value=1)			# limits the display of the threading, so it is not all messy when displayed
 
 def connScan(TargetHost, TargetPort):
    try:
@@ -13,19 +13,19 @@ def connScan(TargetHost, TargetPort):
 	connSkt.connect((TargetHost, TargetPort))
 	connSkt.send('KaliWithUbuntu\r\n')
 	results = connSkt.recv(100)
-	screenLock.acquire()
+	ThreadingDisplayLimit.acquire()
 	print '\n\t[Success] %d/ TCP Port Open'% TargetPort
 	print '\n\t[Success] ' + str(results)
    except:
-	screenLock.acquire()
+	ThreadingDisplayLimit.acquire()
 	print '\t\t[Failure] %d/ TCP Port Closed'% TargetPort
    finally:
-	screenLock.release()
+	ThreadingDisplayLimit.release()
 	connSkt.close()
 
 def PortScanner(TargetHost, TargetPorts):
    try:
-	TargetIP = gethostbyname(TargetHost)
+	TargetIP = gethostbyname(TargetHost)			# inclusion of a DNS that will grab the IP's of URL's
    except:
 	print "\n\t[Failure] Cannot resolve '%s': Host Does Not Exist"%TargetHost
 	return
@@ -39,15 +39,16 @@ def PortScanner(TargetHost, TargetPorts):
 	threading = Thread(target=connScan, args=(TargetHost, int(TargetPort)))
 	threading.start()
 
+#The beginning of the main function, the origins of the extensions (optparse) begins here
 def main():
-   parser = optparse.OptionParser('usage%prog '+ '-H <target host> -P <target port>')
-   parser.add_option('-H', '--Host', dest = 'TargetHost', type='string', help = 'Please Write The Exact Host Targeted')
-   parser.add_option('-P', '--Port', dest = 'TargetPort', type='string', help = 'Please Write The Exact Ports, Only Seperated By Comma')
-   (options,args) = parser.parse_args()
+   extensions = optparse.OptionParser('usage%prog '+ '-H <target host> -P <target port>')
+   extensions.add_option('-H', '--Host', dest = 'TargetHost', type='string', help = 'Please Write The Exact Host Targeted')
+   extensions.add_option('-P', '--Port', dest = 'TargetPort', type='string', help = 'Please Write The Exact Ports, Only Seperated By Comma')
+   (options,args) = extensions.parse_args()
    TargetHost = options.TargetHost
    TargetPorts = str(options.TargetPort).split(',')
    if (TargetHost == None) | (TargetPorts[0] == None):
-	print parser.usage
+	print extensions.usage
 	exit(0)
    PortScanner(TargetHost, TargetPorts)
 
