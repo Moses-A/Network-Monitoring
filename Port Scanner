@@ -27,12 +27,12 @@ def ConnectionScan(TargetHost, TargetPort):
 ##The beginning of the PortScanner Function, that alters the data inputed by the user, along with the threading ##
 def PortScanner(TargetHost, TargetPorts):
    try:
-	TargetIP = gethostbyname(TargetHost)			# Inclusion of a DNS that will grab the IP's of URL's
+	TargetIP = gethostbyname(TargetHost)			# Inclusion of a NS that will grab the IP's of URL's
    except:
 	print "\n\t[Failure] Cannot resolve '%s': Host Does Not Exist"%TargetHost
 	return
    try:
-	TargetName = gethostbyaddr(TargetIP)			# Inclusion of reverse DNS that will grab the URL's of the IP's 
+	TargetName = gethostbyaddr(TargetIP)			# Inclusion of reverse NS that will grab the URL's of the IP's 
 	print '\n\t[Success] Scan Results for: ' + TargetName[0] # Will attempt to display the IP Address of the URL, depending on what you
    except:							 # insert as the host input
 	print '\n\t[Success] Scan Results for: ' + TargetIP
