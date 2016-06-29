@@ -35,7 +35,7 @@ def printTxtFile():
 	except:
 	   pass
 	
-
+# The issue might be around this general area
 def main():
 	parser = optparse.OptionParser('usage%prog -p <text file>')
 	parser.add_option('-p', dest='txtFile', type='string', help='specify text filename')
