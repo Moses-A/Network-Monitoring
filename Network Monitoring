@@ -43,7 +43,7 @@ def main():
 	exit(0)
    pcapFile = options.pcapFile
    f = open(pcapFile)
-   pcap = dpkt.pcap.Reader(f)
+   pcap = dpkt.pcap.Reader(f)	# where the problem lays
    printPcap(pcap)
 
 if __name__ == '__main__':
