@@ -10,35 +10,35 @@ import optparse
 gi = pygeoip.GeoIP('/opt/GeoIP/Geo.dat')		#Inclusion of Geo.dat database which allows for the location of all IP's
 
 ##Analyzes the IP's to discover the location of origination##
-def retGeoStr(ip):					#The function which defines the geographic location of the IP's
+def retrieveGeographicSource(ip):					#The function which defines the geographic location of the IP's
    try:
 	rec = gi.record_by_name(ip)
-	city =  rec['city']				# The inclusion of the city based on the IP
+	city =  rec['city']				# The inclusion of the city based on the IP address
 	if city != '':					
-	   geoLoc = city + ', ' + country		# The inlclusiong of the country based on the I
+	   Location = city + ', ' + country		# The inclusion of the country based on the IP address 
 	else:
-	   geoLoc = country				
-	return geoLoc
+	   Location = country				
+	return Location
    except Exception, e:
-	return 'Unregistered'				# Catch all for IP's if not found in database, counted as unregistered
+	return 'Unfound'				# Catch all for IP's if not found in database, counted as unregistered
 
 ##Analyzes the Pcap file, organizes it, then prints out the Source and Destination, IP Address and location
-def printPcap(pcap):					# The function which creates packets and the interaction of the 
+def AnalyzePcap(pcap):					# The function which creates packets and the interaction of the 
    for (ts, buf) in pcap:				# pcap file for network monitoring
        try:
 	   eth = dpkt.ethernet.Ethernet(buf)
 	   ip = eth.data
-	   src = socket.inet_ntoa(ip.src)
-	   dst = socket.inet_ntoa(ip.dst)
-	   print '[+] Src: ' + src + '--> Dst: ' + dst	# How it is printed within the file, with the IP, then geographical destination
-	   print '[+] Src: ' + retGeoStr(src) + '--> Dst: ' + retGeoStr(dst)
+	   source = socket.inet_ntoa(ip.source)					# retrieves the source IP address
+	   destination = socket.inet_ntoa(ip.destination)			# retrieves the destination IP address
+	   print ' Source IP : ' + source + '--> Destination IP: ' + destination	# How it is printed within the file, with the IP, then geographical destination
+	   print 'Source IP Location: ' + retrieveGeographicSource(source) + '--> Destination IP Location: ' + retrieveGeographicSource(destination)
        except:
 	   pass
 
 ## The beginning of the main, grabs the user's input for which pcap file to analyze ##
 def main():
-   parser = optparse.OptionParser('usage%prog -p <pcap file>')	# The inclusiong of the optparse 
-   parser.add_option('-p', dest='pcapFile', type='string', help='specify pcap filename')
+   parser = optparse.OptionParser('usage%prog -r <pcap file>')	# The inclusiong of the optparse 
+   parser.add_option('-r', '--Read', dest='pcapFile', type='string', help='specify pcap filename')
    (options, args) = parser.parse_args()
    if options.pcapFile == None:
 	print parser.usage
@@ -46,7 +46,7 @@ def main():
    pcapFile = options.pcapFile
    f = open(pcapFile)						# The opening of the pcapFile
    pcap = dpkt.pcap.Reader(f)					
-   printPcap(pcap)						# references the printPcap function
+   AnalyzePcap(pcap)						# references the AnalyzePcap function
 
 if __name__ == '__main__':
 	main()
