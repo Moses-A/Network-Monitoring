@@ -1,8 +1,5 @@
 # Python Code
-# Attention. 
-One of the pieces of code is not mine, they have been directly copied. I will be making them my own over the course of the next few days, tune back in later this week for my own code.
-
-Created in Python, created with the help of TJ O'Connor "Violent Python"
+Attention. Created in Python, created with the help of TJ O'Connor "Violent Python"
 
 (Install Aided by TJ O'Connor in his book "Violent Python")
 
