@@ -7,44 +7,44 @@ import socket
 import pygeoip
 import optparse
 
-gi = pygeoip.GeoIP('/opt/GeoIP/Geo.dat')
+gi = pygeoip.GeoIP('/opt/GeoIP/Geo.dat')		#Inclusion of Geo.dat database which allows for the location of all IP's
 
-def retGeoStr(ip):
+def retGeoStr(ip):					#The function which defines the geographic location of the IP's
    try:
 	rec = gi.record_by_name(ip)
-	city =  rec['city']
-	if city != '':
-	   geoLoc = city + ', ' + country
+	city =  rec['city']				# The inclusion of the city based on the IP
+	if city != '':					
+	   geoLoc = city + ', ' + country		# The inlclusiong of the country based on the I
 	else:
-	   geoLoc = country
+	   geoLoc = country				
 	return geoLoc
    except Exception, e:
-	return 'Unregistered'
+	return 'Unregistered'				# Catch all for IP's if not found in database, counted as unregistered
 
-def printPcap(pcap):
-   for (ts, buf) in pcap:
+def printPcap(pcap):					# The function which creates packets and the interaction of the 
+   for (ts, buf) in pcap:				# pcap file for network monitoring
        try:
 	   eth = dpkt.ethernet.Ethernet(buf)
 	   ip = eth.data
 	   src = socket.inet_ntoa(ip.src)
 	   dst = socket.inet_ntoa(ip.dst)
-	   print '[+] Src: ' + src + '--> Dst: ' + dst
+	   print '[+] Src: ' + src + '--> Dst: ' + dst	# How it is printed within the file, with the IP, then geographical destination
 	   print '[+] Src: ' + retGeoStr(src) + '--> Dst: ' + retGeoStr(dst)
        except:
 	   pass
 
 
 def main():
-   parser = optparse.OptionParser('usage%prog -p <pcap file>')
+   parser = optparse.OptionParser('usage%prog -p <pcap file>')	# The inclusiong of the optparse 
    parser.add_option('-p', dest='pcapFile', type='string', help='specify pcap filename')
    (options, args) = parser.parse_args()
    if options.pcapFile == None:
 	print parser.usage
 	exit(0)
    pcapFile = options.pcapFile
-   f = open(pcapFile)
-   pcap = dpkt.pcap.Reader(f)	# where the problem lays
-   printPcap(pcap)
+   f = open(pcapFile)						# The opening of the pcapFile
+   pcap = dpkt.pcap.Reader(f)					
+   printPcap(pcap)						# references the printPcap function
 
 if __name__ == '__main__':
 	main()
