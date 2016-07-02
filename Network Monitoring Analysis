@@ -9,6 +9,7 @@ import optparse
 
 gi = pygeoip.GeoIP('/opt/GeoIP/Geo.dat')		#Inclusion of Geo.dat database which allows for the location of all IP's
 
+##Analyzes the IP's to discover the location of origination##
 def retGeoStr(ip):					#The function which defines the geographic location of the IP's
    try:
 	rec = gi.record_by_name(ip)
@@ -21,6 +22,7 @@ def retGeoStr(ip):					#The function which defines the geographic location of th
    except Exception, e:
 	return 'Unregistered'				# Catch all for IP's if not found in database, counted as unregistered
 
+##Analyzes the Pcap file, organizes it, then prints out the Source and Destination, IP Address and location
 def printPcap(pcap):					# The function which creates packets and the interaction of the 
    for (ts, buf) in pcap:				# pcap file for network monitoring
        try:
@@ -33,7 +35,7 @@ def printPcap(pcap):					# The function which creates packets and the interactio
        except:
 	   pass
 
-
+## The beginning of the main, grabs the user's input for which pcap file to analyze ##
 def main():
    parser = optparse.OptionParser('usage%prog -p <pcap file>')	# The inclusiong of the optparse 
    parser.add_option('-p', dest='pcapFile', type='string', help='specify pcap filename')
