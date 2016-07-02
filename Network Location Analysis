@@ -22,7 +22,7 @@ def retrieveGeographicSource(ip):					#The function which defines the geographic
    except Exception, e:
 	return 'Unfound'				# Catch all for IP's if not found in database, counted as unregistered
 
-##Analyzes the Pcap file, organizes it, then prints out the Source and Destination, IP Address and location
+##Analyzes the Pcap file, organizes it, then prints out the Source and Destination, IP Address and location##
 def AnalyzePcap(pcap):					# The function which creates packets and the interaction of the 
    for (ts, buf) in pcap:				# pcap file for network monitoring
        try:
