@@ -36,16 +36,16 @@ def DDOSAttack(pcap):								#
 
 ## The main will examine the user's input, open up the pcap file, then will forward the information to the DDOSAttack function ##
 def main():
-	options = optparse.OptionParser("usage%prog  -p <pcap file> -t <thresh>")
-	options.add_option('-r', '--Read', dest ='pcapFile', type='string', help='specify pcap filename')
-	options.add_option('-T', '--Thresh', dest='thresh', type='int', help='specify threshold count')
-	(options, args) = options.parse_args()
+	parser = optparse.OptionParser("usage%prog  -p <pcap file> -t <thresh>")
+	parser.add_option('-r', '--Read', dest ='pcapFile', type='string', help='specify pcap filename')
+	parser.add_option('-T', '--Thresh', dest='thresh', type='int', help='specify threshold count')
+	(options, args) = parser.parse_args()
 	if options.pcapFile == None:
-		print " Please Specify a pcap file you wish to examine. (Use -r)"
+		print parser.usage
 		exit(0)
-	if options.thresh != None:
-		THRESH = options.thresh
-	pcapFile = options.pcapFile
+	if parser.thresh != None:
+		THRESH = parser.thresh
+	pcapFile = parser.pcapFile
 	f = open(pcapFile)						# Opens up the pcap file 
 	pcap = dpkt.pcap.Reader(f)					# Analyzes the pcap and sends the information along
 	DDOSAttack(pcap)						# Calls for the DDOSAttack function
