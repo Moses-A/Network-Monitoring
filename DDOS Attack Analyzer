@@ -4,6 +4,7 @@
 
 import dpkt
 import socket
+import optparse
 
 THRESH = 1000
 
