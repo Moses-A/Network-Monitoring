@@ -8,46 +8,47 @@ import optparse
 
 THRESH = 1000
 
-def findAttack(pcap):
-	pktCount = {}
+def DDOSAttack(pcap):								#
+	packetCount = {}
 	for (ts, buf) in pcap:
 		try:
 			eth = dpkt.ethernet.Ethernet(buf)
 			ip = eth.data
-			src = socket.inet_ntoa(ip.src)
-			dst = socket.inet_ntoa(ip.dst)
+			source = socket.inet_ntoa(ip.src)
+			destination = socket.inet_ntoa(ip.dst)
 			tcp = ip.data
-			dport = tcp.dport
-			if dport == 80 or dport == 443:
-				stream = src + ':' + dst
-				if pktCount.has_key(stream):
-					pktCount[stream] = pktCount[stream] + 1
+			DestinationPort = tcp.DestinationPort
+			if DestinationPort == 80 or DestinationPort == 443:
+				stream = source + ':' + destination
+				if packetCount.has_key(stream):
+					packetCount[stream] = packetCount[stream] + 1
 				else:
-					pktCount[stream] = 1
+					packetCount[stream] = 1
 		except:
 			pass
 
-	for stream in pktCount:
-		pktsSent = pktCount[stream]
-		if pktsSent > THRESH:
-			src = stream.split(':')[0]
-			dst = stream.split(':')[1]
-			print '[+] ' +src+ ' attacked '+dst+ 'with ' + str(pktsSent) + 'pkts.'
+	for stream in packetCount:
+		packetsSent = packetCount[stream]
+		if packetsSent > THRESH:
+			source = stream.split(':')[0]
+			destination = stream.split(':')[1]
+			print '[+] ' +source+ ' attacked '+destination+ 'with ' + str(packetsSent) + 'pkts.'
 
+## The main will examine the user's input, open up the pcap file, then will forward the information to the DDOSAttack function ##
 def main():
-	parser = optparse.OptionParser("usage%prog  -p <pcap file> -t <thresh>")
-	parser.add_option('-p', dest ='pcapFile', type='string', help='specify pcap filename')
-	parser.add_option('-t', dest='thresh', type='int', help='specify threshold count')
-	(options, args) = parser.parse_args()
+	options = optparse.OptionParser("usage%prog  -p <pcap file> -t <thresh>")
+	options.add_option('-r', '--Read', dest ='pcapFile', type='string', help='specify pcap filename')
+	options.add_option('-T', '--Thresh', dest='thresh', type='int', help='specify threshold count')
+	(options, args) = options.parse_args()
 	if options.pcapFile == None:
-		print parser.usage
+		print " Please Specify a pcap file you wish to examine. (Use -r)"
 		exit(0)
 	if options.thresh != None:
 		THRESH = options.thresh
 	pcapFile = options.pcapFile
-	f = open(pcapFile)
-	pcap =dpkt.pcap.Reader(f)
-	findAttack(pcap)
+	f = open(pcapFile)						# Opens up the pcap file 
+	pcap = dpkt.pcap.Reader(f)					# Analyzes the pcap and sends the information along
+	DDOSAttack(pcap)						# Calls for the DDOSAttack function
 
 if __name__ == '__main__':
 	main()
