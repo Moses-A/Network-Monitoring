@@ -28,8 +28,8 @@ def AnalyzePcap(pcap):					# The function which creates packets and the interact
        try:
 	   eth = dpkt.ethernet.Ethernet(buf)
 	   ip = eth.data
-	   source = socket.inet_ntoa(ip.source)					# retrieves the source IP address
-	   destination = socket.inet_ntoa(ip.destination)			# retrieves the destination IP address
+	   source = socket.inet_ntoa(ip.src)					# retrieves the source IP address
+	   destination = socket.inet_ntoa(ip.dst)				# retrieves the destination IP address
 	   print ' Source IP : ' + source + '--> Destination IP: ' + destination	# How it is printed within the file, with the IP, then geographical destination
 	   print 'Source IP Location: ' + retrieveGeographicSource(source) + '--> Destination IP Location: ' + retrieveGeographicSource(destination)
        except:
