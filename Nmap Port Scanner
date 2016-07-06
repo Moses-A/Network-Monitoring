@@ -4,24 +4,24 @@
 import nmap
 import optparse
 
-def nmapScan(tgtHost, tgtPort):
+def PortScan(TargetHost, TargetPort):
 	nmScan = nmap.PortScanner()
-	nmScan.scan(tgtHost, tgtPort)
-	state = nmScan[tgtHost]['tcp'][int(tgtPort)]['state']
-	print " [*] " + tgtHost + " tcp/" +tgtPort + " " + state
+	nmScan.scan(TargetHost, TargetPort)
+	state = nmScan[TargetHost]['tcp'][int(TargetPort)]['state']
+	print "\n [Results] " + TargetHost + " TCP Port/" +TargetPort + " " + state
 
 def main():
-	parser = optparse.OptionParser('usage%prog -H <Target Host> -p <Target Port>')
-	parser.add_option('-H', '--Host', dest='tgtHost', type='string', help='specify target host')
-	parser.add_option('-P', '--Port',  dest='tgtPort', type='string', help='specify targe port')
+	parser = optparse.OptionParser('usage%prog -H <Target Host> -P <Target Port>')
+	parser.add_option('-H', '--Host', dest='TargetHost', type='string', help='specify target host')
+	parser.add_option('-P', '--Port',  dest='TargetPort', type='string', help='specify targe port')
 	(options, args) = parser.parse_args()
-	tgtHost = options.tgtHost
-	tgtPorts = str(options.tgtPort).split(',')
-	if (tgtHost == None) | (tgtPorts[0] == None):
+	TargetHost = options.TargetHost
+	TargetPorts = str(options.TargetPort).split(',')
+	if (TargetHost == None) | (TargetPorts[0] == None):
 		print parser.usage
 		exit(0)
-	for tgtPort in tgtPorts:
-		nmapScan(tgtHost, tgtPort)
+	for TargetPort in TargetPorts:
+		PortScan(TargetHost, TargetPort)
 
 if __name__ == '__main__':
 	main()
