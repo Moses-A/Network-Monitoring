@@ -1,5 +1,5 @@
 # Python Code
-Attention. Created in Python, created with the help of TJ O'Connor "Violent Python"
+Attention. Created in Python, created with the help of TJ O'Connor's book "Violent Python"
 
 (Install Aided by TJ O'Connor in his book "Violent Python")
 
