@@ -20,7 +20,7 @@ def main():
 	TargetPorts = str(options.TargetPort).split(',')
 	if (TargetHost == None) | (TargetPorts[0] == None):		# Catch all for the parser, if user doesn't insert anything, it tells how to use the program
 		print extensions.usage
-		exit(0)
+		exit(0)							# If match is not found in the lists, the code ends
 	for TargetPort in TargetPorts:
 		PortScan(TargetHost, TargetPort)			# Calls for the PortScan function
 
