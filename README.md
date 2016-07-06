@@ -16,3 +16,7 @@ Run the following commands:
   $ mkdir /opt/GeoIP
   
   $ mv GeoLiteCity.dat /opt/GeoIP/Geo.dat
+  
+  $ sudo apt-get install python-nmap
+  
+  $ sudo apt-get install python-scapy
