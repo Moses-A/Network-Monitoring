@@ -4,6 +4,8 @@
 import optparse
 import socket
 import os
+import sys
+
 
 def ProgramInstaller():
 	os.system("sudo apt-get install nmap && sudo apt-get install xprobe2 && sudo apt-get install tshark")
@@ -27,7 +29,7 @@ def WebServer(TargetHost):
 	OSD = os.system("sudo nmap -sV -script=http-enum" +TargetHost+" >> NetworkScan.txt")
 
 def SambaServer(TargetHost):
-	OSD = os.system(" sudo nmap –script=samba-vuln-cve-2012-1182 -p 139 "+TargetHost+" >> NetworkScan.txt")
+	OSD = os.system(" sudo nmap –script=samba-vuln-cve-2012-1182 -p139 "+TargetHost+" >> NetworkScan.txt")
 
 def SMTPServer(TargetHost):
 	OSD = os.system("sudo nmap -sV –script=smtp-strangeport "+TargetHost+ " >> NetworkScan.txt")
@@ -72,6 +74,9 @@ def AdvSCTPScan(TargetHost):
 def ZombieAttack(TargetHost,TargetPort):
 	mask = raw_input(" What IP Do You Want To Mask Yourself As? ")
 	OSD = os.system("sudo nmap -Pn -p"+TargetPort+" -sI "+mask+" "+TargetHost+" >> NetworkScan.txt")
+
+def SpoofAddress(TargetHost):
+	OSD = os.system("sudo nmap -S "+TargetHost+" >> NetworkScan.txt") 
 
 def main():
 	extensions = optparse.OptionParser('usage%prog -H <Target Host> -P <Target Port>')
