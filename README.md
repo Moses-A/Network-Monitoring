@@ -20,3 +20,5 @@ Run the following commands:
   $ sudo apt-get install python-nmap
   
   $ sudo apt-get install python-scapy
+  
+  $ sudo apt-get install xprobe2
