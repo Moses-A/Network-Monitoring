@@ -10,10 +10,35 @@ import pickle
 def ProgramInstaller():
 	os.system("sudo apt-get install nmap && sudo apt-get install xprobe2 && sudo apt-get install tshark")
 	
-def OSScanner(TargetHost):
-	OSD = os.system("sudo xprobe2 "+TargetHost+" > OSScan.txt")
-	
+def FinPortScanner(TargetHost):
+	OSD = os.system("sudo nmap -sF "+TargetHost+" >> NetworkScan.txt")
 
+def ACKScan(TargetHost):
+	OSD = os.system("sudo nmap -sA "+TargetHost+" >> NetworkScan.txt")
+
+def FragmentedIP(TargetHost):
+	OSD = os.system("sudo nmap -ff "+TargetHost+" >> NetworkScan.txt")
+	
+def OSScanner(TargetHost):
+	OSD = os.system("sudo xprobe2 "+TargetHost+" >> NetworkScan.txt")
+	
+def MacSpoof(TargetHost):
+	OSD = os.system("sudo nmap -spoof-mac Cisco "+TargetHost+" >> NetworkScan.txt")
+
+def WebServer(TargetHost):
+	OSD = os.system("sudo nmap -sV -script=http-enum" +TargetHost+" >> NetworkScan.txt")
+
+def SambaServer(TargetHost):
+	OSD = os.system(" sudo nmap –script=samba-vuln-cve-2012-1182 -p 139 "+TargetHost+" >> NetworkScan.txt")
+
+def SMTPServer(TargetHost):
+	OSD = os.system("sudo nmap -sV –script=smtp-strangeport "+TargetHost+ " >> NetworkScan.txt")
+
+def PHPVersion(TargetHost):
+	OSD = os.system("sudo nmap -sV –script=http-php-version "+TargetHost+" >> NetworkScan.txt")
+
+def DNSBlackList(TargetHost):
+	OSD = os.system("sudo nmap -sn "+TargetHost+" -script dns-blacklist >> NetworkScan.txt")
 
 def main():
 	extensions = optparse.OptionParser('usage%prog -H <Target Host> -P <Target Port>')
@@ -25,7 +50,9 @@ def main():
 	if (TargetHost == None) | (TargetPorts[0] == None):
 		print extensions.usage
 		exit(0)
+	f = open('NetworkScan.txt', 'w')
 	ProgramInstaller()
+	FinPortScanner()
 	for TargetPort in TargetPorts:
 		OSScanner(TargetHost)
 
