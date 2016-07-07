@@ -4,8 +4,6 @@
 import optparse
 import socket
 import os
-import argparse
-import pickle
 
 def ProgramInstaller():
 	os.system("sudo apt-get install nmap && sudo apt-get install xprobe2 && sudo apt-get install tshark")
@@ -39,6 +37,41 @@ def PHPVersion(TargetHost):
 
 def DNSBlackList(TargetHost):
 	OSD = os.system("sudo nmap -sn "+TargetHost+" -script dns-blacklist >> NetworkScan.txt")
+
+def HostPing(TargetHost):
+	OSD = os.system("sudo nmap -sn "+TargetHost+" >> NetworkScan.txt")
+
+def PortScan(TargetHost,TargetPort):
+	OSD = os.system("sudo nmap -p "+TargetPort+" -sV -sS -T4 "+TargetHost+" >> NetworkScan.txt")	
+	
+def Options():
+	print "nmap -sV -p 139,445 -oG grep-output.txt 10.0.1.0/24"
+	print "nmap -sS -sV -T5 10.0.1.99 --webxml -oX - | xsltproc --output file.html -"
+
+def NetBios(TargetHost):
+	OSD = os.system("sudo nmap -sV -p 139,445 "+TargetHost+" >> NetworkScan.txt")
+	User = raw_input(" Do You Want To Continue? [Y/N] ")
+	if User == "Y" or User == "y":
+		display = os.system("sudo nmap -sU --script nbstat.nse -p 137 "+TargetHost+" >> NetworkScan.txt")
+		continuation = os.system("sudo nmap --script-args=unsafe=1 --script smb-check-vulns.nse -p 445 "+TargetHost+" >> NetworkScan.txt")
+	else:
+		print " Information has been outputed to a textfile."
+
+def CheckHTTPServer(TargetHost):
+	OSD = os.system("sudo nmap -p80,443 "+TargetHost+" -oG >> NetworkScan.txt")
+
+def UDPScan(TargetHost,TargetPort):
+	OSD = os.system("sudo nmap -p"+TargetPort+" "+TargetHost+" >> NetworkScan.txt")
+	
+def SCTPScan(TargetHost):
+	OSD = os.system("sudo nmap -sY "+TargetHost+" >> NetworkScan.txt")
+
+def AdvSCTPScan(TargetHost):
+	OSD = os.system("sudo nmap -sZ "+TargetHost+" >> NetworkScan.txt")
+
+def ZombieAttack(TargetHost,TargetPort):
+	mask = raw_input(" What IP Do You Want To Mask Yourself As? ")
+	OSD = os.system("sudo nmap -Pn -p"+TargetPort+" -sI "+mask+" "+TargetHost+" >> NetworkScan.txt")
 
 def main():
 	extensions = optparse.OptionParser('usage%prog -H <Target Host> -P <Target Port>')
