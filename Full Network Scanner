@@ -1,6 +1,7 @@
 #!/usr/bin/env python2
 # written by Moses Arocha
-
+# The code requires the full installation of several programs and integrates the terminal.
+## ROOT IS REQUIRED ##
 import optparse
 import socket
 import os
