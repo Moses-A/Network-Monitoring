@@ -1,11 +1,13 @@
 #!/usr/bin/env python2
+# -*- coding: utf-8 -*- 
 # written by Moses Arocha
-# The code requires the full installation of several programs and integrates the terminal.
-## ROOT IS REQUIRED ##
+
+from __future__ import unicode_literals
 import optparse
 import socket
 import os
 import sys
+
 
 
 def ProgramInstaller():
