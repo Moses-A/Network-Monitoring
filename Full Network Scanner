@@ -92,8 +92,9 @@ def main():
 		print extensions.usage
 		exit(0)
 	f = open('NetworkScan.txt', 'w')
-	ProgramInstaller()
-	FinPortScanner()
+	#ProgramInstaller()
+	print TargetHost
+	FinPortScanner(TargetHost)
 	for TargetPort in TargetPorts:
 		OSScanner(TargetHost)
 
