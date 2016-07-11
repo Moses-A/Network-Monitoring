@@ -9,9 +9,8 @@ import os
 import sys
 
 
-
 def ProgramInstaller():
-	os.system("sudo apt-get install nmap && sudo apt-get install xprobe2 && sudo apt-get install tshark")
+	os.system("sudo apt-get install nmap && sudo apt-get install tshark")
 	
 def FinPortScanner(TargetHost):
 	OSD = os.system("sudo nmap -sF "+TargetHost+" >> NetworkScan.txt")
@@ -23,7 +22,7 @@ def FragmentedIP(TargetHost):
 	OSD = os.system("sudo nmap -ff "+TargetHost+" >> NetworkScan.txt")
 	
 def OSScanner(TargetHost):
-	OSD = os.system("sudo xprobe2 "+TargetHost+" >> NetworkScan.txt")
+	OSD = os.system("sudo nmap -O "+TargetHost+" >> NetworkScan.txt")
 	
 def MacSpoof(TargetHost):
 	OSD = os.system("sudo nmap -spoof-mac Cisco "+TargetHost+" >> NetworkScan.txt")
@@ -91,12 +90,17 @@ def main():
 	if (TargetHost == None) | (TargetPorts[0] == None):
 		print extensions.usage
 		exit(0)
+	if not os.geteuid() == 0:
+    		sys.exit('Must Be Root!')
 	f = open('NetworkScan.txt', 'w')
+
 	#ProgramInstaller()
 	print TargetHost
 	FinPortScanner(TargetHost)
 	for TargetPort in TargetPorts:
-		OSScanner(TargetHost)
+		PortScan(TargetHost, TargetPort)
+		UDPScan(TargetHost, TargetPort)
+		ZombieAttack(TargetHost, TargetPort)		
 
 if __name__ == '__main__':
 	main()
