@@ -5,29 +5,29 @@ import sys
 import os
 from scapy.all import *
 
-interface = 'mon0'
-hiddenNets = []
-unhiddenNets = []
+interface = 'mon0'				# Uses the wireless NIC called mon0, must but Network Card in Monitor mode
+HiddenNetworks = []
+ShownNetworks = []
 
-def sniffDot11(p):
+def SniffNetwork(p):
 	if p.haslayer(Dot11ProbeResp):
-		addr2 = p.getlayer(Dot11).addr2
-		if (addr2 in hiddenNets) & (addr2 not in unhiddenNets):
+		MACAddr = p.getlayer(Dot11).MACAddr		# Grabs the MAC Address of the wireless connection
+		if (MACAddr in HiddenNetworks) & (MACAddr not in ShownNetworks):	# Checks to see if MAC Address is in wireless 
 			netName = p.getlayer(Dot11ProbeResp).info
-			print '\t[Success] Decloacked Hidden SSID ' + netName + ' for MAC: ' + addr2
-			unhiddenNets.append(addr2)
+			print '\t[Success] Decloacked Hidden SSID ' + netName + ' for MAC: ' + MACAddr	# If successfully identified, outputs this
+			ShownNetworks.append(MACAddr)
 	if p.haslayer(Dot11Beacon):
 		if p.getlayer(Dot11Beacon).info == '':
-			addr2 = p.getlayer(Dot11).addr2
-			if addr2 not in hiddenNets:
-				print '\t[Attempt] Detected Hidden SSID with MAC: ' + addr2
-				hiddenNets.append(addr2)
+			MACAddr = p.getlayer(Dot11).MACAddr
+			if MACAddr not in HiddenNetworks:
+				print '\t[Attempt] Detected Hidden SSID with MAC: ' + MACAddr		# If successfully found, outputs this
+				HiddenNetworks.append(MACAddr)
 
-sniff(iface=interface, prn=sniffDot11)
+if not os.geteuid() == 0:
+    sys.exit('\t Please Run As Root!!')
+os.system('airmon-ng start wlan0')		# Interacts with terminal to put the wireless NIC in monitor mode
+print " \t The Sniffing Has Begun... Please Wait... \n"
+sniff(iface=interface, prn=SniffNetwork)		# Commenses the Sniff function
 
-#try:
-#    os.rename('/etc/foo', '/etc/bar')
-#except IOError as e:
-#    if (e[0] == errno.EPERM):
-#       print >> sys.stderr, "You need root permissions to do this, laterz!"
-#       sys.exit(1)
+
+
