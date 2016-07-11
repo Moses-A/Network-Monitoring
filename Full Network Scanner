@@ -80,6 +80,26 @@ def ZombieAttack(TargetHost,TargetPort):
 def SpoofAddress(TargetHost):
 	OSD = os.system("sudo nmap -S "+TargetHost+" >> NetworkScan.txt") 
 
+def Organizer(TargetHost):
+	print "\n\n\t Below Are The Tasks You Can Commense. Only Do If You Have Permissions! "
+	choice = int(raw_input("\n\t\t What Is The First Thing You Would Like To Do?"))
+	FinPortScanner(TargetHost),
+	ACKScan(TargetHost),
+	FragmentedIP(TargetHost),
+	OSScanner(TargetHost),
+	MacSpoof(TargetHost),
+	SambaServer(TargetHost),
+	SMTPServer(TargetHost),
+	PHPVersion(TargetHost),
+	DNSBlackList(TargetHost),
+	HostPing(TargetHost),
+	Options(),
+	NetBios(TargetHost),
+	CheckHTTPServer(TargetHost),
+	SCTPScan(TargetHost),
+	AdvSCTPScant(TargetHost),
+	SpoofAddress(TargetHost)
+
 def main():
 	extensions = optparse.OptionParser('usage%prog -H <Target Host> -P <Target Port>')
 	extensions.add_option('-H', '--Host', dest='TargetHost', type='string', help='specify target host')
@@ -93,10 +113,8 @@ def main():
 	if not os.geteuid() == 0:
     		sys.exit('Must Be Root!')
 	f = open('NetworkScan.txt', 'w')
-
-	#ProgramInstaller()
-	print TargetHost
-	FinPortScanner(TargetHost)
+	ProgramInstaller()
+	Organizer(TargetHost)
 	for TargetPort in TargetPorts:
 		PortScan(TargetHost, TargetPort)
 		UDPScan(TargetHost, TargetPort)
