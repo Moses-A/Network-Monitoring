@@ -47,10 +47,6 @@ def HostPing(TargetHost):
 
 def PortScan(TargetHost,TargetPort):
 	OSD = os.system("sudo nmap -p "+TargetPort+" -sV -sS -T4 "+TargetHost+" >> NetworkScan.txt")	
-	
-def Options():
-	print "nmap -sV -p 139,445 -oG grep-output.txt 10.0.1.0/24"
-	print "nmap -sS -sV -T5 10.0.1.99 --webxml -oX - | xsltproc --output file.html -"
 
 def NetBios(TargetHost):
 	OSD = os.system("sudo nmap -sV -p 139,445 "+TargetHost+" >> NetworkScan.txt")
@@ -62,7 +58,7 @@ def NetBios(TargetHost):
 		print " Information has been outputed to a textfile."
 
 def CheckHTTPServer(TargetHost):
-	OSD = os.system("sudo nmap -p80,443 "+TargetHost+" -oG >> NetworkScan.txt")
+	OSD = os.system("sudo nmap -oG -p80,443 "+TargetHost+" >> NetworkScan.txt")
 
 def UDPScan(TargetHost,TargetPort):
 	OSD = os.system("sudo nmap -p"+TargetPort+" "+TargetHost+" >> NetworkScan.txt")
@@ -81,27 +77,52 @@ def SpoofAddress(TargetHost):
 	OSD = os.system("sudo nmap -S "+TargetHost+" >> NetworkScan.txt") 
 
 def Organizer(TargetHost):
-	print "\n\n\t Below Are The Tasks You Can Commense. Only Do If You Have Permissions! "
-	choice = int(raw_input("\n\t\t What Is The First Thing You Would Like To Do?"))
-	FinPortScanner(TargetHost),
-	ACKScan(TargetHost),
-	FragmentedIP(TargetHost),
-	OSScanner(TargetHost),
-	MacSpoof(TargetHost),
-	SambaServer(TargetHost),
-	SMTPServer(TargetHost),
-	PHPVersion(TargetHost),
-	DNSBlackList(TargetHost),
-	HostPing(TargetHost),
-	Options(),
-	NetBios(TargetHost),
-	CheckHTTPServer(TargetHost),
-	SCTPScan(TargetHost),
-	AdvSCTPScant(TargetHost),
-	SpoofAddress(TargetHost)
+	repeat = 0
 
+	while (repeat == 0):
+		os.system('clear')
+		print "\n\n Below Are The Tasks You Can Commense. Only Do If You Have Permissions! "
+		print "\n\t [0] Exit. \n\t [1] Fin Port Scan \n\t [2] Acknowlegement Port Scan \n\t [3] Send Fragmented IP's \n\t [4] OS Scanner \n\t [5] Mac Spoofing \n\t [6] Analyze Samba Server \n\t [7] Analyze SMTP Server \n\t [8] Check PHP Version \n\t [9] Check DNS Black List \n\t [10] Ping Host \n\t [11] Spoof Address \n\t [12] Analyze NetBios \n\t [13] Check HTTP Server Vuln. \n\t [14] SCTP Scan \n\t [15] Adv SCTP Scan"
+		choice = int(raw_input("\n\t What Is The First Thing You Would Like To Do?  : "))
+		
+		if choice == 0:
+			repeat = 1
+		elif choice == 1:
+			FinPortScanner(TargetHost)
+		elif choice == 2:
+			ACKScan(TargetHost)
+		elif choice == 3:
+			FragmentedIP(TargetHost)
+		elif choice == 4:
+			OSScanner(TargetHost)
+		elif choice == 5:
+			MacSpoof(TargetHost)
+		elif choice == 6:
+			SambaServer(TargetHost)
+		elif choice == 7:
+			SMTPServer(TargetHost)
+		elif choice == 8:
+			PHPVersion(TargetHost) 
+		elif choice == 9:
+			DNSBlackList(TargetHost)
+		elif choice == 10:
+			HostPing(TargetHost)
+		elif choice == 11:
+			SpoofAddress(TargetHost)
+		elif choice == 12:
+			NetBios(TargetHost)
+		elif choice == 13:
+			CheckHTTPServer(TargetHost)
+		elif choice == 14:
+			SCTPScan(TargetHost)
+		elif choice == 15:
+			AdvSCTPScant(TargetHost)
+		else:
+			sys.exit('')
+		
+	
 def main():
-	extensions = optparse.OptionParser('usage%prog -H <Target Host> -P <Target Port>')
+	extensions = optparse.OptionParser('Usage For Program: -H <Target Host> -P <Target Port>')
 	extensions.add_option('-H', '--Host', dest='TargetHost', type='string', help='specify target host')
 	extensions.add_option('-P', '--Port', dest='TargetPort', type='string', help='specify target port')
 	(options, args) = extensions.parse_args()
@@ -111,14 +132,27 @@ def main():
 		print extensions.usage
 		exit(0)
 	if not os.geteuid() == 0:
-    		sys.exit('Must Be Root!')
+    		sys.exit('\tMust Be Root!')
 	f = open('NetworkScan.txt', 'w')
+	os.system('chmod 777 NetworkScan.txt')
 	ProgramInstaller()
 	Organizer(TargetHost)
 	for TargetPort in TargetPorts:
-		PortScan(TargetHost, TargetPort)
-		UDPScan(TargetHost, TargetPort)
-		ZombieAttack(TargetHost, TargetPort)		
+		repeat = 0
+		while (repeat == 0):
+			os.system('clear')
+			print "\n\t Below Are A List Of Port Scans. Choose Wisely! "
+			print "\n\t [0] Exit \n\t [1] TCP SYN Port Scan \n\t [2] UDP SYN Port Scan \n\t [3] Zombie Attack"
+			choice = int(raw_input("\n\t\t Please Enter A Number : "))
+
+			if choice == 0:
+				repeat = 1
+			elif choice == 1:
+				PortScan(TargetHost, TargetPort)
+			elif choice == 2:
+				UDPScan(TargetHost, TargetPort)
+			elif choice == 3:
+				ZombieAttack(TargetHost, TargetPort)		
 
 if __name__ == '__main__':
 	main()
