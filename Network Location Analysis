@@ -37,7 +37,7 @@ def AnalyzePcap(pcap):					# The function which creates packets and the interact
 
 ## The beginning of the main, grabs the user's input for which pcap file to analyze ##
 def main():
-   parser = optparse.OptionParser('usage%prog -r <pcap file>')	# The inclusiong of the optparse 
+   parser = optparse.OptionParser('Usages For Program: -r <pcap file>')	# The inclusiong of the optparse 
    parser.add_option('-r', '--Read', dest='pcapFile', type='string', help='specify pcap filename')
    (options, args) = parser.parse_args()
    if options.pcapFile == None:
