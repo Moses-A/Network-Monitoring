@@ -53,6 +53,8 @@ def main():
    if (TargetHost == None) | (TargetPorts[0] == None):  	# The creation of a quick list of all of the Ports, it grabs the first in the 
 	print extensions.usage
 	exit(0)
+   if not os.geteuid() == 0:
+    	sys.exit('Must Be Root!')
    PortScanner(TargetHost, TargetPorts)				# The reference to PortScanner function, that actually does the scan
 
 if __name__ == "__main__":
