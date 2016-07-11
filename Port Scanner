@@ -44,7 +44,7 @@ def PortScanner(TargetHost, TargetPorts):
 
 ##The beginning of the main function, the origins of the extensions (optparse) begins here##
 def main():
-   extensions = optparse.OptionParser('usage%prog '+ '-H <target host> -P <target port>')
+   extensions = optparse.OptionParser('Uses For Program: '+ '-H <target host> -P <target port>')
    extensions.add_option('-H', '--Host', dest = 'TargetHost', type='string', help = 'Please Write The Exact Host Targeted')
    extensions.add_option('-P', '--Port', dest = 'TargetPort', type='string', help = 'Please Write The Exact Ports, Only Seperated By Comma')
    (options,args) = extensions.parse_args()
