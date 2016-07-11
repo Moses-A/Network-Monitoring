@@ -13,7 +13,7 @@ def PortScan(TargetHost, TargetPort):					# The creation of the function, uses t
 
 ## The main function grabs the users input, analyzes it to make sure it is valid, then sends the information to the PortScan function ##
 def main():
-	extensions = optparse.OptionParser('usage%prog -H <Target Host> -P <Target Port>')
+	extensions = optparse.OptionParser('Uses For Program: -H <Target Host> -P <Target Port>')
 	extensions.add_option('-H', '--Host', dest='TargetHost', type='string', help='specify target host')
 	extensions.add_option('-P', '--Port',  dest='TargetPort', type='string', help='specify targe port')
 	(options, args) = extensions.parse_args()		
@@ -22,6 +22,8 @@ def main():
 	if (TargetHost == None) | (TargetPorts[0] == None):		# Catch all for the parser, if user doesn't insert anything, it tells how to use the program
 		print extensions.usage
 		exit(0)							# If match is not found in the lists, the code ends
+	if not os.geteuid() == 0:
+    		sys.exit('Must Be Root!')
 	for TargetPort in TargetPorts:
 		PortScan(TargetHost, TargetPort)			# Calls for the PortScan function
 
