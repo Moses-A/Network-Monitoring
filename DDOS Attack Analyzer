@@ -36,7 +36,7 @@ def DDOSAttack(pcap):								# The function that defines the DDOS attack in prog
 
 ## The main will examine the user's input, open up the pcap file, then will forward the information to the DDOSAttack function ##
 def main():
-	parser = optparse.OptionParser("usage%prog  -p <pcap file> -t <thresh>")
+	parser = optparse.OptionParser("Usages For Program:  -p <pcap file> -t <thresh>")
 	parser.add_option('-r', '--Read', dest ='pcapFile', type='string', help='specify pcap filename')
 	parser.add_option('-T', '--Thresh', dest='thresh', type='int', help='specify threshold count')
 	(options, args) = parser.parse_args()
