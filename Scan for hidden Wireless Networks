@@ -11,7 +11,7 @@ ShownNetworks = []
 
 def SniffNetwork(p):
 	if p.haslayer(Dot11ProbeResp):
-		MACAddr = p.getlayer(Dot11).MACAddr		# Grabs the MAC Address of the wireless connection
+		MACAddr = p.getlayer(Dot11).addr2		# Grabs the MAC Address of the wireless connection
 		if (MACAddr in HiddenNetworks) & (MACAddr not in ShownNetworks):	# Checks to see if MAC Address is in wireless 
 			netName = p.getlayer(Dot11ProbeResp).info
 			print '\t[Success] Decloacked Hidden SSID ' + netName + ' for MAC: ' + MACAddr	# If successfully identified, outputs this
