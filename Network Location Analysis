@@ -43,6 +43,8 @@ def main():
    if options.pcapFile == None:
 	print parser.usage
 	exit(0)
+   if not os.geteuid() == 0:
+    	sys.exit('Must Be Root!')
    pcapFile = options.pcapFile
    f = open(pcapFile)						# The opening of the pcapFile
    pcap = dpkt.pcap.Reader(f)					
