@@ -44,7 +44,7 @@ def main():
 		print parser.usage					# The catch all function for the parser
 		exit(0)							# Will exit the program 
 	if not os.geteuid() == 0:
-    		sys.exit('Must Be Root!')
+    		sys.exit('Must Be Root!')				# This code checks to see if a user is root
 	if parser.thresh != None:					# If the user doesn't enter in an interger for the thresh, it automatically defaults to the set global value of 1000
 		THRESH = parser.thresh
 	pcapFile = parser.pcapFile
