@@ -18,6 +18,9 @@ def FinPortScanner(TargetHost):
 def SpecificFinPortScanner(TargetHost, TargetPort):
 	OSD = os.system("sudo nmap -sF -p"+TargetPort+ " " +TargetHost+" >> NetworkScan.txt")
 
+def SpecificACKScan(TargetHost, TargetPort):
+	OSD = os.system("sudo nmap -sA -p"+TargetPort+ " " +TargetHost+" >> NetworkScan.txt")
+
 def ACKScan(TargetHost):
 	OSD = os.system("sudo nmap -sA "+TargetHost+" >> NetworkScan.txt")
 
@@ -151,7 +154,7 @@ def main():
 		while (repeat == 0):
 			os.system('clear')
 			print "\n\t Below Are A List Of Port Scans. Choose Wisely! "
-			print "\n\t [0] Exit \n\t [1] TCP SYN Port Scan \n\t [2] UDP SYN Port Scan \n\t [3] Zombie Attack \n\t [4] Specific FIN Port Scan"
+			print "\n\t [0] Exit \n\t [1] TCP SYN Port Scan \n\t [2] UDP SYN Port Scan \n\t [3] Zombie Attack \n\t [4] Specific FIN Port Scan \n\t [5] Specific ACK Scan"
 			choice = int(raw_input("\n\t\t Please Enter A Number : "))
 
 			if choice == 0:
@@ -164,6 +167,8 @@ def main():
 				ZombieAttack(TargetHost, TargetPort)		
 			elif choice == 4:
 				SpecificFinPortScanner(TargetHost, TargetPort)
+			elif choice == 5:
+				SpecificACKScan(TargetHost, TargetPort)
 
 if __name__ == '__main__':
 	main()
