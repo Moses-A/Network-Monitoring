@@ -157,7 +157,7 @@ def main():
 	f = open('NetworkScan.txt', 'w')
 	os.system('chmod 777 NetworkScan.txt')
 	d = open('NetworkMonitor.txt', 'w')
-	os.system('chmod 777 NetworkMonitor.txt', 'w')
+	os.system('chmod 777 NetworkMonitor.txt')
 	ProgramInstaller()
 	TShark()
 	Organizer(TargetHost)
