@@ -11,6 +11,9 @@ import sys
 
 def ProgramInstaller():
 	os.system("sudo apt-get install nmap && sudo apt-get install tshark")
+
+def TShark():
+	os.system("sudo tshark -i any >> NetworkMonitor.txt")
 	
 def FinPortScanner(TargetHost):
 	OSD = os.system("sudo nmap -sF "+TargetHost+" >> NetworkScan.txt")
@@ -153,7 +156,10 @@ def main():
     		sys.exit('\tMust Be Root!')
 	f = open('NetworkScan.txt', 'w')
 	os.system('chmod 777 NetworkScan.txt')
+	d = open('NetworkMonitor.txt', 'w')
+	os.system('chmod 777 NetworkMonitor.txt', 'w')
 	ProgramInstaller()
+	TShark()
 	Organizer(TargetHost)
 	for TargetPort in TargetPorts:
 		repeat = 0
