@@ -15,6 +15,10 @@ def ProgramInstaller():
 def FinPortScanner(TargetHost):
 	OSD = os.system("sudo nmap -sF "+TargetHost+" >> NetworkScan.txt")
 
+def TTLScan(TargetHost):
+	Decoy = raw_input(" What Is The Decoy IP Address? : ")
+	OSD = os.system("sudo nmap "+TargetHost+" -D "+Decoy+" -ttl 13 >> NetworkScan.txt")
+	
 def SpecificFinPortScanner(TargetHost, TargetPort):
 	OSD = os.system("sudo nmap -sF -p"+TargetPort+ " " +TargetHost+" >> NetworkScan.txt")
 
@@ -92,7 +96,7 @@ def Organizer(TargetHost):
 	while (repeat == 0):
 		os.system('clear')
 		print "\n\n Below Are The Tasks You Can Commense. Only Do If You Have Permissions! "
-		print "\n\t [0] Exit. \n\t [1] Fin Port Scan \n\t [2] Acknowlegement Port Scan \n\t [3] Send Fragmented IP's \n\t [4] OS Scanner \n\t [5] Mac Spoofing \n\t [6] Analyze Samba Server \n\t [7] Analyze SMTP Server \n\t [8] Check PHP Version \n\t [9] Check DNS Black List \n\t [10] Ping Host \n\t [11] Spoof Address \n\t [12] Analyze NetBios \n\t [13] Check HTTP Server Vuln. \n\t [14] SCTP Scan \n\t [15] Adv SCTP Scan \n\t [16] Network Ping"
+		print "\n\t [0] Exit. \n\t [1] Fin Port Scan \n\t [2] Acknowlegement Port Scan \n\t [3] Send Fragmented IP's \n\t [4] OS Scanner \n\t [5] Mac Spoofing \n\t [6] Analyze Samba Server \n\t [7] Analyze SMTP Server \n\t [8] Check PHP Version \n\t [9] Check DNS Black List \n\t [10] Ping Host \n\t [11] Spoof Address \n\t [12] Analyze NetBios \n\t [13] Check HTTP Server Vuln. \n\t [14] SCTP Scan \n\t [15] Adv SCTP Scan \n\t [16] Network Ping \n\t [17] Decoy Scan Using TTL"
 		choice = int(raw_input("\n\t What Is The First Thing You Would Like To Do?  : "))
 		
 		if choice == 0:
@@ -129,6 +133,8 @@ def Organizer(TargetHost):
 			AdvSCTPScan(TargetHost)
 		elif choice == 16:
 			NetworkPing()
+		elif choice == 17:
+			TTLScan(TargetHost)
 		else:
 			sys.exit('')
 		
