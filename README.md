@@ -1,6 +1,5 @@
 # Python Code
-Attention. Created in Python, with the help of TJ O'Connor's book "Violent Python"
-
+ Thank you TJ O'Connor
 (Suggestion. Run all code as Super-user or Administrator)
 
 Please install dpkt and GeoLiteCity packets
