@@ -1,10 +1,13 @@
 # Python Code
-Thank you TJ O'Connor
+
+Every single Python file in this repository is independent of each other, unless specified in the comments. 
+Every file is an independent tool that can aid in network monitoring or analysis.
+
+Thank you TJ O'Connor.
  
 (Suggestion. Run all code as Super-user or Administrator)
 
 Please install dpkt and GeoLiteCity packets
-
 Run the following commands:
 
   $ sudo apt-get install python-dpkt
