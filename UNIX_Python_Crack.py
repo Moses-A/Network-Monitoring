@@ -10,7 +10,7 @@ def testHash(cryptPass):
     dictFile = open('mostcommonpasswords.txt', 'r') 
     for word in dictFile.readlines(): 		
         word = word.strip('\n')
-        cryptWord = crypt.crypt(word,salt) # Attempts to match a password with one from the password list along with the salted hash.
+        cryptWord = crypt.crypt(word,salt) 		# Attempts to match a password with one from the password list along with the salted hash.
         if (cryptWord == cryptPass):
 	    print ("\n\t[Success] The Has Been Found Password: "+word+"\n")
 	    return
@@ -25,7 +25,7 @@ def main():
     # The beginning of the second opening of the document, required for function, previous just adds ":"
     PassText = open('userslist.txt')
     for line in PassText.readlines():
-        if ":" in line: 	     # searchs in the text file for word followed by :
+        if ":" in line: 	     
             user = line.split(':')[0]
             cryptPass = line.split(':')[1].strip(' ')
             print ("\n\t[Attempt] Cracking Password For: "+user)
