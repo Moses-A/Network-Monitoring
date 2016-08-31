@@ -19,4 +19,4 @@ DestinationPort = int(raw_input("\n\n\t What Port Would You Like To Attack Throu
 
 if not os.geteuid() == 0:
     sys.exit('Must Be Root!')
-SynAttack(Source, Target, DestinationPort) # References the SynAttack function, must be placed last so all error handling can occur.
+SynAttack(Source, Target, DestinationPort	 # References the SynAttack function, must be placed last so all error handling can occur.
