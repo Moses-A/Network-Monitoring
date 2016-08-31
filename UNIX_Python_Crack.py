@@ -20,12 +20,12 @@ def testHash(cryptPass):
 def main(): 
     usersName = raw_input("\n\n\t Please Insert A Name of a User : ") 
     Users = open('userslist.txt', 'w')      
-    Users.write(usersName+':')		    # NOTE: Must add ":" after every entrance so the input can be readable.
+    Users.write(usersName+':')		    #Note: Must add ":" after every entrance so the input can be readable.
     Users.close() 			   
     # The beginning of the second opening of the document, required for function, previous just adds ":"
     PassText = open('userslist.txt')
     for line in PassText.readlines():
-        if ":" in line: 	     
+        if ":" in line: 	     	    # Note: Only reads lines with ":", so it must be present.
             user = line.split(':')[0]
             cryptPass = line.split(':')[1].strip(' ')
             print ("\n\t[Attempt] Cracking Password For: "+user)
