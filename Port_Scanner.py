@@ -3,7 +3,7 @@
 # This is a port scan that also grabs the application banner of that port
 
 import optparse
-from socket import *
+import socket
 from threading import *
 
 ThreadingDisplayLimit = Semaphore(value=1)		# Limits the display of the threading, so only one function is displayed at a time.
@@ -30,7 +30,7 @@ def PortScanner(Target_Host, Target_Ports):
     try:
         Target_IP = gethostbyname(Target_Host)			 # Inclusion of a NS that will grab the IP's of URL's, if unknown.
     except:
-        print "\n\t[Failure] Cannot resolve '%s': Host Does Not Exist"%Target_Host
+        print "\n\t[Failure] Cannot resolve '%s': Host Does Not Exist"% Target_Host
         return
     try:
         Target_Name = gethostbyaddr(Target_IP)		 	  # Inclusion of reverse NS that will grab the URL's of the IP's 
