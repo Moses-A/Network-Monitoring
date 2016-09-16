@@ -12,7 +12,7 @@ Interface = 'mon0'
 
 def printPkt(pkt):
     global PIP, NAV_PORT
-    if pkt.haslayer(PIP) and pkt.getlayer(PIP).dport == NAVPORT:
+    if pkt.haslayer(PIP) and pkt.getlayer(PIP).dport == NAV_PORT:
         raw = pkt.sprintf('%Raw.load%')
 	ip_src = pkt.getlayer(IP).src
 	ip_dst = pkt.getlayer(IP).dst
