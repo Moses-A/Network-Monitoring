@@ -5,31 +5,31 @@
 
 import crypt
 
-def testHash(cryptPass):
-    salt = cryptPass[0:2] 				# Accounts for the salt hash: 2 characters.
-    dictFile = open('mostcommonpasswords.txt', 'r') 
-    for word in dictFile.readlines(): 		
+def testHash(crypt_Pass):
+    salt = crypt_Pass[0:2] 				# Accounts for the salt hash: 2 characters.
+    dict_File = open('mostcommonpasswords.txt', 'r') 
+    for word in dict_File.readlines(): 		
         word = word.strip('\n')
-        cryptWord = crypt.crypt(word,salt) 		# Attempts to match a password with one from the password list along with the salted hash.
-        if (cryptWord == cryptPass):
+        crypt_Word = crypt.crypt(word,salt) 		# Attempts to match a password with one from the password list along with the salted hash.
+        if (crypt_Word == crypt_Pass):
 	    print ("\n\t[Success] The Has Been Found Password: "+word+"\n")
 	    return
     print ("\n\t[Failure] The Password Has Not Been Found.\n")
     return
 
 def main(): 
-    usersName = raw_input("\n\n\t Please Insert A Name of a User : ") 
+    users_Name = raw_input("\n\n\t Please Insert A Name of a User : ") 
     Users = open('userslist.txt', 'w')      
-    Users.write(usersName+':')		    #Note: Must add ":" after every entrance so the input can be readable.
+    Users.write(users_Name+':')		    #Note: Must add ":" after every entrance so the input can be readable.
     Users.close() 			   
     # The beginning of the second opening of the document, required for function, previous just adds ":"
-    PassText = open('userslist.txt')
-    for line in PassText.readlines():
+    Pass_Text = open('userslist.txt')
+    for line in Pass_Text.readlines():
         if ":" in line: 	     	    # Note: Only reads lines with ":", so it must be present.
             user = line.split(':')[0]
-            cryptPass = line.split(':')[1].strip(' ')
+            crypt_Pass = line.split(':')[1].strip(' ')
             print ("\n\t[Attempt] Cracking Password For: "+user)
-            testHash(cryptPass)  # Must reference the testHash function last, so all error handling could have occurred.
+            testHash(crypt_Pass)  # Must reference the testHash function last, so all error handling could have occurred.
 
 if __name__ == "__main__":
     main()
