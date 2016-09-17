@@ -2,6 +2,7 @@
 # written by Moses Arocha
 # Written with the help of TJ O'Connor in his book "Violent Python"
 
+import os
 import dpkt
 import socket
 import optparse
