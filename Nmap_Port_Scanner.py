@@ -2,6 +2,7 @@
 # written by Moses Arocha
 # This code was written with the assist of TJ O'Connor's "Violent Python"
 
+import os
 import nmap
 import optparse
 
