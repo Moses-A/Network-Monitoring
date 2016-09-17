@@ -2,6 +2,7 @@
 #Author is Moses Arocha
 # Created in Python, created with the help of TJ O'Connor "Violent Python"
 
+import os
 import dpkt
 import socket
 import pygeoip
