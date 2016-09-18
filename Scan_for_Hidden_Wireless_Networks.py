@@ -2,9 +2,11 @@
 # written by Moses Arocha
 # Created in Python, with the help of TJ O'Connor's book "Violent Python".
 
+
+from scapy.all import *
+
 import sys
 import os
-from scapy.all import *
 
 interface = 'mon0'				# Uses the wireless NIC called mon0, must put Network Card in Monitor mode with name of mon0
 HiddenNetworks = []
