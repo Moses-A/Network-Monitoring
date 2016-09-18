@@ -3,6 +3,7 @@
 # Written with the help of TJ O'Connor in his book "Violent Python"
 
 import os
+import sys
 import dpkt
 import socket
 import optparse
