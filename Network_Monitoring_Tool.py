@@ -3,7 +3,9 @@
 #  Created in Python, with the help of TJ O'Connor's book "Violent Python"
 
 from scapy.all import *
+
 import os
+import sys
 import optparse
 
 PIP = 'TCP'
