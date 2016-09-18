@@ -3,6 +3,7 @@
 # Created in Python, created with the help of TJ O'Connor "Violent Python"
 
 import os
+import sys
 import dpkt
 import socket
 import pygeoip
