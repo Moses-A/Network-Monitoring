@@ -39,8 +39,6 @@ def DDOSAttack(pcap):
 
 # The main will examine the user's input, open up the pcap file, then will forward the information to the DDOSAttack function #
 def main():
-    if not os.geteuid() == 0:
-        sys.exit('Must Be Root!')				# This code checks to see if a user is root
     parser = optparse.OptionParser("Usages For Program:  -r <Read PCAP File> -t <Thresh Holder>")
     parser.add_option('-r', '--Read', dest ='pcapFile', type='string', help='specify pcap filename')
     parser.add_option('-T', '--Thresh', dest='thresh', type='int', help='specify threshold count')
@@ -53,6 +51,8 @@ def main():
     pcap_File = parser.pcapFile
     f = open(pcap_File)					
     pcap = dpkt.pcap.Reader(f)					# Analyzes the pcap and sends the information along
+    if not os.geteuid() == 0:
+        sys.exit('Must Be Root!')				# This code checks to see if a user is root
     DDOSAttack(pcap)						# Calls for the DDOSAttack function
 
 if __name__ == '__main__':
