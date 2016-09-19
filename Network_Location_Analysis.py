@@ -46,11 +46,11 @@ def main():
     if options.pcapFile == None:
         print parser.usage
         exit(0)
-    if not os.geteuid() == 0:
-        sys.exit('Must Be Root!')	# Checks to see if a user is root, checks UID 0 in Linux, does NOT work for Windows
     pcapFile = options.pcapFile
     f = open(pcapFile)					
-    pcap = dpkt.pcap.Reader(f)					
+    pcap = dpkt.pcap.Reader(f)	
+     if not os.geteuid() == 0:
+        sys.exit('Must Be Root!')	# Checks to see if a user is root, checks UID 0 in Linux, does NOT work for Windows
     AnalyzePcap(pcap)			# Must be at end of line for all error handling to occur
 
 if __name__ == '__main__':
