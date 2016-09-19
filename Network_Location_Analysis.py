@@ -49,7 +49,7 @@ def main():
     pcapFile = options.pcapFile
     f = open(pcapFile)					
     pcap = dpkt.pcap.Reader(f)	
-     if not os.geteuid() == 0:
+    if not os.geteuid() == 0:
         sys.exit('Must Be Root!')	# Checks to see if a user is root, checks UID 0 in Linux, does NOT work for Windows
     AnalyzePcap(pcap)			# Must be at end of line for all error handling to occur
 
