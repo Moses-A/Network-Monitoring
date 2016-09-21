@@ -48,8 +48,6 @@ def PortScanner(Target_Host, Target_Ports):
         threading.start()
 
 def main():
-    if not os.geteuid() == 0:
-        sys.exit('Must Be Root!')
     extensions = optparse.OptionParser('Uses For Program: '+ '-H <target host> -P <target port>')
     extensions.add_option('-H', '--Host', dest = 'TargetHost', type='string', help = 'Please Write The Exact Host Targeted')
     extensions.add_option('-P', '--Port', dest = 'TargetPort', type='string', help = 'Please Write The Exact Ports, Only Seperated By Comma')
@@ -59,7 +57,8 @@ def main():
     if (Target_Host == None) | (Target_Ports[0] == None):  	# The creation of a quick list of all of the Ports, it grabs the first.
         print extensions.usage
         exit(0)
-    
+    if not os.geteuid() == 0:
+        sys.exit('Must Be Root!')
     PortScanner(Target_Host, Target_Ports)			# The reference to PortScanner function must be last to go through all error handling.
 
 if __name__ == "__main__":
