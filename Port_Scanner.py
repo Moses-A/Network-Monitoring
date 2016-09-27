@@ -1,7 +1,7 @@
 #!/usr/bin/env python2
 # written by Moses Arocha
 # This is a port scan that also grabs the application banner of that port
-
+#this has a bug with importing socket
 
 from threading import *
 
