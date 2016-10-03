@@ -4,9 +4,9 @@
 #this has a bug with importing socket
 
 from threading import *
+from socket import *
 
 import optparse
-import socket
 import sys
 import os
 
