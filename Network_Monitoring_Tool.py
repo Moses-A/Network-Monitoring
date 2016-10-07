@@ -22,8 +22,6 @@ def printPkt(pkt):
 
 
 def main():
-     if not os.geteuid() == 0:
-        sys.exit('\t Please Run As Root!!')		# Makes sure that UID 0 is enabled.
     parser = optparse.OptionParser("Usages For Program: -I <Interface> -P <Port> --TCP <IP Protocol>")
     parser.add_option('-I', dest ='interface', type='string', help='Specify Interface Type')
     parser.add_option('-P', dest='port', type='int', help='Specify Port Number')
@@ -32,6 +30,8 @@ def main():
     PIP = options.InternetProtocol
     NAV_PORT = options.port
     Interface = options.interface
+    if not os.geteuid() == 0:
+        sys.exit('\t Please Run As Root!!')		# Makes sure that UID 0 is enabled.
     os.system('sudo airmon-ng start wlan0')		# Interacts with terminal to put the wireless NIC in monitor mode
     print " \t The Sniffing Has Begun... Please Wait... \n\n"
     if options.interface == None:
